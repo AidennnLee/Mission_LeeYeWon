@@ -21,7 +21,7 @@ public class Mission1WeekApplication {
             cmd = scanner.nextLine();
 
             if(cmd.equals("종료")) break;
-            if(cmd.equals("등록")){
+            else if(cmd.equals("등록")){
                 System.out.print("명언 : ");
                 content = scanner.nextLine();
                 System.out.print("작가 : ");
@@ -36,13 +36,18 @@ public class Mission1WeekApplication {
 
                 System.out.println(lastId + "번 명언이 등록되었습니다.");
             }
-            if(cmd.equals("목록")){
+            else if(cmd.equals("목록")){
                 System.out.println("번호 / 작가 / 명언");
                 System.out.println("----------------------");
                 for(int i = words.size() - 1; i >= 0; i--){
                     Word listingWord = words.get(i);
                     System.out.println(listingWord.id + " / " + listingWord.author + " / " + listingWord.content);
                 }
+            }
+            else if(cmd.startsWith("삭제")){
+                cmd = cmd.substring(6);
+                words.remove(Integer.parseInt(cmd) - 1);
+                System.out.println(cmd + "번 명언이 삭제되었습니다.");
             }
         }
     }
