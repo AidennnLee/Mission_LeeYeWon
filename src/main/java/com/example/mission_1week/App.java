@@ -21,7 +21,9 @@ public class App {
             else if (cmd.equals("등록")) register();
             else if (cmd.equals("목록")) listing();
             else if (cmd.startsWith("삭제")) delete(cmd);
+            else if (cmd.startsWith("수정")) modify(cmd);
         }
+        scanner.close();
     }
     void register(){
         System.out.print("명언 : ");
@@ -54,8 +56,27 @@ public class App {
 
         for(int i = words.size() - 1; i >= 0; i--){
             if(words.get(i).id == deleteId){
-                words.remove( deleteId- 1);
-                System.out.println(cmd + "번 명언이 삭제되었습니다.");
+                words.remove(i);
+                System.out.println(deleteId + "번 명언이 삭제되었습니다.");
+                return;
+            }
+        }
+        System.out.println(cmd + "번 명언은 존재하지 않습니다.");
+    }
+
+    void modify(String cmd){
+        cmd = cmd.substring(6);
+        int modifyId = Integer.parseInt(cmd);
+
+        for(int i = words.size() - 1; i >= 0; i--){
+            if(words.get(i).id == modifyId){
+                Word modifyWord = words.get(i);
+                System.out.print("명언(기존) : " + modifyWord.content + "\n명언 : ");
+                modifyWord.content = scanner.nextLine();
+                System.out.print("작가(기존) : " + modifyWord.author + "\n작가 : ");
+                modifyWord.author = scanner.nextLine();
+
+                System.out.println(modifyId + "번 명언이 수정되었습니다.");
                 return;
             }
         }
