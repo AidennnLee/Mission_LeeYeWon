@@ -1,5 +1,6 @@
 package com.example.mission_1week;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -9,7 +10,21 @@ public class App {
     String content, author;
     int lastId = 0;
     List<Word> words = new ArrayList<>();
-    void run(){
+    void run() throws IOException {
+        File file = new File("words.txt");
+        if (!file.exists()) {
+            try {
+                if (file.createNewFile()) {
+                    System.out.println("파일이 생성되었습니다.");
+                } else {
+                    System.out.println("파일 생성에 실패했습니다.");
+                }
+            } catch (IOException e) {
+                System.out.println("파일 생성 중 오류가 발생했습니다: " + e.getMessage());
+            }
+        }
+
+        words = readWords(words);
         String cmd;
 
         System.out.println("== 명언 앱 ==");
@@ -23,6 +38,7 @@ public class App {
             else if (cmd.startsWith("삭제")) delete(cmd);
             else if (cmd.startsWith("수정")) modify(cmd);
         }
+        writeWords();
         scanner.close();
     }
     void register(){
@@ -81,5 +97,36 @@ public class App {
             }
         }
         System.out.println(cmd + "번 명언은 존재하지 않습니다.");
+    }
+
+    List<Word> readWords(List<Word> wordList) throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader("words.txt"));
+
+        String line;
+        while ((line = reader.readLine()) != null){
+            Word readWord = new Word();
+            readWord.id = Integer.parseInt(line);
+            readWord.author = reader.readLine();
+            readWord.content = reader.readLine();
+            wordList.add(readWord);
+            lastId++;
+        }
+        // 스트림 닫기
+        reader.close();
+        return wordList;
+    }
+
+    void writeWords() throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter("words.txt"));
+
+        for(int i = 0; i < words.size(); i++){
+            writer.write(Integer.toString(words.get(i).id));
+            writer.newLine(); // 다음 줄로 이동
+            writer.write(words.get(i).author);
+            writer.newLine(); // 다음 줄로 이동
+            writer.write(words.get(i).content);
+            writer.newLine(); // 다음 줄로 이동
+        }
+        writer.close();
     }
 }
