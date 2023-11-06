@@ -10,6 +10,7 @@ public class Mission1WeekApplication {
         //SpringApplication.run(Mission1WeekApplication.class, args);
         Scanner scanner = new Scanner(System.in);
         String cmd, content, author;
+        int lastId = 0;
 
         System.out.println("== 명언 앱 ==");
         while(true){
@@ -22,7 +23,8 @@ public class Mission1WeekApplication {
                 content = scanner.nextLine();
                 System.out.print("작가 : ");
                 author = scanner.nextLine();
-                System.out.println("1번 명언이 등록되었습니다.");
+                lastId++;
+                System.out.println(lastId + "번 명언이 등록되었습니다.");
             }
         }
     }
