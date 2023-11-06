@@ -9,13 +9,20 @@ public class Mission1WeekApplication {
     public static void main(String[] args) {
         //SpringApplication.run(Mission1WeekApplication.class, args);
         Scanner scanner = new Scanner(System.in);
-        String cmd;
+        String cmd, content, author;
 
         System.out.println("== 명언 앱 ==");
         while(true){
             System.out.print("명령) ");
             cmd = scanner.nextLine();
+
             if(cmd.equals("종료")) break;
+            if(cmd.equals("등록")){
+                System.out.print("명언 : ");
+                content = scanner.nextLine();
+                System.out.print("작가 : ");
+                author = scanner.nextLine();
+            }
         }
     }
 }
