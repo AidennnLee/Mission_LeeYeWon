@@ -15,7 +15,7 @@ public class App {
         if (!file.exists()) {
             try {
                 if (file.createNewFile()) {
-                    System.out.println("파일이 생성되었습니다.");
+                    //파일 생성 성공한 경우
                 } else {
                     System.out.println("파일 생성에 실패했습니다.");
                 }
@@ -99,6 +99,7 @@ public class App {
         System.out.println(cmd + "번 명언은 존재하지 않습니다.");
     }
 
+    // 텍스트 파일로부터 데이터를 읽어 arrayList words에 저장. 프로그램 시작 시 최초 1번만 실행.
     List<Word> readWords(List<Word> wordList) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader("words.txt"));
 
@@ -111,11 +112,11 @@ public class App {
             wordList.add(readWord);
             lastId++;
         }
-        // 스트림 닫기
         reader.close();
         return wordList;
     }
 
+    //arrayList words로부터 데이터를 읽어 텍스트 파일에 저장. 프로그램 종료 직전 1번만 실행.
     void writeWords() throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter("words.txt"));
 
